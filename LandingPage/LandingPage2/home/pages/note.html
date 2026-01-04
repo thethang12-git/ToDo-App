@@ -1,0 +1,83 @@
+<script>
+
+return `
+<div class="content-note" style="flex: 1;position: relative;display: flex;flex-direction:column;gap: 16px;color:#0D121C">
+                <div class="note-header" style="display: flex;flex-direction: row;justify-content:space-between;align-items: center;">
+                    <div style="display: flex;flex-direction: row;gap: 16px">
+                        <h3> Ghi chú </h3>
+                    </div>
+                </div>
+                <hr>
+                <div class="note-body" style="display: flex;flex-direction: column;max-height: 80vh;">
+<!--            <div class="note-body" style="display: flex;flex-direction: column;max-height: 1000px;overflow-y: scroll;">-->
+                    <div style="display: flex;flex-direction: column;gap: 12px;padding-bottom:66px;">
+                        <p style="padding: 24px;text-align: center;font-size: 14px;font-weight: 450;color : #0D121C">Date will be displayed here</p>
+                        <div onmouseenter="showOption(this)" class="note-content-body note-body-content-10" style="position: relative;">
+                            <div onmouseenter="showModi(this,'.note-body-content-10')"  style="display: none;position: absolute;left: -38px;padding: 6px 8px;border-radius: 99px;background: #E5E7EB">
+                                <i class="fa-solid fa-ellipsis"></i>
+                                <div class="note-body--modify" onmouseenter="showChild(this,'.note-body-content-10 div')" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);padding:4px;display: none;flex-direction: column;justify-content: space-evenly;position: absolute;background: white;height: 84px;width: 120px;border-radius: 8px;top: 120%;left: 22px">
+                                    <p onclick="editFunc(this)" style="padding: 8px;display: flex;flex-direction: row;align-items: center;gap: 10px;cursor: pointer;border-radius: 8px">
+                                        <i class="fa-solid fa-pencil"></i>
+                                        chỉnh sửa
+                                    </p>
+                                    <p onclick='noteDelete(this)' style="padding: 8px;display: flex;flex-direction: row;align-items: center;gap: 10px;cursor: pointer;border-radius: 8px">
+                                        <i class="fa-solid fa-trash"></i>
+                                        Xoá
+                                    </p>
+                                </div>
+                            </div>
+                            <div onmouseenter="this.style.background = '#E5E7EB'" onmouseleave="this.style.background = '#F5F5F5'" class="note-body--text-container"  style="padding: 12px;background: #F5F5F5;border-radius:8px;display: flex;flex-direction: column;gap: 4px;font-size: 17px ">
+                                <p class="note-body--text" style="line-height: 28px;display: flex;flex-wrap: wrap;overflow-wrap: break-word;word-wrap:break-word;word-break: break-all;">
+                                    Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                                </p>
+                                <p class="note-body-content-time" style="text-align: right;font-size: 12px"> 20:08</p>
+                            </div>
+                        </div>
+<!--                        -->
+                        <div onmouseenter="showOption(this)" class="note-content-body note-body-content-11" style="position: relative;">
+                            <div onmouseenter="showModi(this,'.note-body-content-11')"  style="display: none;position: absolute;left: -38px;padding: 6px 8px;border-radius: 99px;background: #E5E7EB">
+                                <i class="fa-solid fa-ellipsis"></i>
+                                <div class="note-body--modify" onmouseenter="showChild(this,'.note-body-content-11 div')" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);padding:4px;display: none;flex-direction: column;justify-content: space-evenly;position: absolute;background: white;height: 84px;width: 120px;border-radius: 8px;top: 120%;left: 22px">
+                                    <p onclick="editFunc(this)" style="padding: 8px;display: flex;flex-direction: row;align-items: center;gap: 10px;cursor: pointer;border-radius: 8px">
+                                        <i class="fa-solid fa-pencil"></i>
+                                        chỉnh sửa
+                                    </p>
+                                    <p onclick='noteDelete(this)' style="padding: 8px;display: flex;flex-direction: row;align-items: center;gap: 10px;cursor: pointer;border-radius: 8px">
+                                        <i class="fa-solid fa-trash"></i>
+                                        Xoá
+                                    </p>
+                                </div>
+                            </div>
+                            <div onmouseenter="this.style.background = '#E5E7EB'" onmouseleave="this.style.background = '#F5F5F5'" class="note-body--text-container"  style="padding: 12px;background: #F5F5F5;border-radius:8px;display: flex;flex-direction: column;gap: 4px;font-size: 17px ">
+                                <p class="note-body--text" style="line-height: 28px;display: flex;flex-wrap: wrap;overflow-wrap: break-word;overflow-wrap: break-word;word-wrap:break-word;word-break: break-all;">
+                                    const child = document.querySelector('.child');
+                                    const parent = child.parentElement;
+
+                                    // Lấy chiều cao thực tế của phần tử cha
+                                    const parentHeight = parent.offsetHeight;
+
+                                    // Tính bottom pixel dựa vào 2% chiều cao cha
+                                    const computedStyle = window.getComputedStyle(child);
+                                    const bottomPercent = parseFloat(computedStyle.bottom); // sẽ trả về 2 (nếu là '2%')
+                                    const bottomPx = parentHeight * (bottomPercent / 100);
+
+                                    console.log('Bottom in pixels:', bottomPx);
+                                </p>
+                                <p class="note-body-content-time" style="text-align: right;font-size: 12px"> 20:08</p>
+                            </div>
+                        </div>
+<!--                        -->
+
+<!--                        -->
+                    </div>
+                </div>
+                <div class="note-input" style="background: white;max-width:100vw;padding:12px;position: absolute;bottom:2%;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);width: 100%;border-radius: 16px;display: flex;flex-direction: row;justify-content: space-between ">
+                    <div style="flex: 1;color: #4D5761">
+                        <div style="display: block;height: 0"><i style="margin-right: 6px;" class="fa-solid fa-pen"></i> Chỉnh sửa <i onclick="editCancel()" style="cursor: pointer" class="fa-solid fa-circle-xmark"></i></div>
+                        <textarea id="textarea" oninput="autoResize()"  style="height: 20px;width: 100%;padding-top: 5px;font-size: 14px;flex: 1;border: none;outline: none;min-height: 20px;max-height: 200px;resize: none;overflow: hidden;overflow-y: auto;" ></textarea>
+                    </div>
+                    <i onclick="notePush()" style="align-self: end;font-size: 28px;cursor: pointer;display: flex" class="fa-solid fa-circle-chevron-up"></i>
+                </div>
+            </div>
+`
+</script>

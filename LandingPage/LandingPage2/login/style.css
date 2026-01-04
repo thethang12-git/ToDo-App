@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    background-image: url('../asset/image 1.png');
+    background-size: cover;
+    background-color: lightgrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container {
+    height: 418px;
+    width: 348px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 48px 24px;
+    gap:24px;
+    position: relative;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 300px;
+    height: 60px;
+}
+
+.email {
+    display: flex;
+    gap: 4px;
+    width: 300px;
+    height: 64px;
+    flex-direction: column;
+}
+
+.email-input i  {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 12px;
+}
+
+.password {
+    display: flex;
+    gap: 4px;
+    width: 300px;
+    height: 88px;
+    flex-direction: column;
+}
+
+.password-input i  {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 12px;
+}
+
+.button {
+    width: 300px;
+    height: 36px;
+}
+
+.button button {
+    width: 100%;
+    height: 100%;
+    background: rgba(239, 104, 32, 1);
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    color: white;
+    font-size: 15px;
+}
+
+input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+input:focus {
+    border: 1px solid rgba(240, 68, 56, 1);
+}
+
+.responsive-img {
+    display: none;
+}
+
+/*tablet*/
+@media (max-width: 1400px) {
+    .container {
+        height: 800px;
+        width: 862px;
+        overflow: hidden;
+        padding-top: 220px;
+    }
+    .responsive-img{
+        display: block;
+        width: 600px;
+        height: 800px;
+        position: absolute;
+        z-index: -1;
+        right: -88px;
+        top: 0;
+    }
+}
+
+/*Mobile*/
+@media (max-width: 600px) {
+    .container {
+        border: 1px solid rgba(243, 244, 246, 1);
+        height: 418px;
+        width: 362px;
+        padding: 48px 24px;
+    }
+    .responsive-img {
+        display: none;
+    }
+}

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="../home/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body onload="dataCheck(renderTodayContent(todayData),todayData,'todayData')">
+<div style="display: none" onclick="console.log(searchFilter('Curabitur'))" style="width: 50px;height: 30px;display: block;margin: auto;"> <button>test test</button></div>
+<div class="container">
+    <div class="navbar"> 
+        <div class="navbar-search">
+            <input onclick="addSearchForm()" type="text" placeholder="Tìm kiếm" readonly>
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <div onclick="onFocus(event)" class="navbar-options">
+            <div onmouseover="this.style.background = '#FDEAD7';" onmouseout="if(!this.getAttribute('isChecked') || this.getAttribute('isChecked') === 'false'){this.style.background='white'}" onclick="loadContent('./pages/today.js');dataCheck(renderTodayContent(todayData),todayData,'todayData')" class="navbar-options-num num-1 "><i class="fa-solid fa-circle-check" id="todayData"></i> <p style="flex: 1;margin-left: 8px;">Hôm nay</p> <p>12</p></div>
+            <div onmouseover="this.style.background = '#FDEAD7';" onmouseout="if(!this.getAttribute('isChecked') || this.getAttribute('isChecked') === 'false'){this.style.background='white'}" onclick="loadContent('./pages/Next3Days.html');dataCheck(renderNext3DaysContent(next3DaysData),next3DaysData,'next3DaysData')"  class="navbar-options-num num-2 " id="next3DaysData"><i class="fa-solid fa-calendar"></i> <p style="flex: 1;margin-left: 8px;">3 ngày tới</p> <p>12</p></div>
+            <div onmouseover="this.style.background = '#FDEAD7';" onmouseout="if(!this.getAttribute('isChecked') || this.getAttribute('isChecked') === 'false'){this.style.background='white'}" onclick="loadContent('./pages/Next7Days.html');dataCheck(renderNext7DaysContent(Next7DaysData),Next7DaysData,'Next7DaysData')" class="navbar-options-num num-3 " id="Next7DaysData"><i class="fa-solid fa-calendar-week"></i> <p style="flex: 1;margin-left: 8px;">7 ngày tới</p> <p>12</p></div>
+            <div onmouseover="this.style.background = '#FDEAD7';" onmouseout="if(!this.getAttribute('isChecked') || this.getAttribute('isChecked') === 'false'){this.style.background='white'}" onclick="loadContent('all.html');dataCheck(renderContent(data),data,'all')" class="navbar-options-num num-4" id="all"><i class="fa-solid fa-list"></i> <p style="flex: 1;margin-left: 8px;">Tất cả</p> <p>12</p></div>
+            <div onmouseover="this.style.background = '#FDEAD7';" onmouseout="if(!this.getAttribute('isChecked') || this.getAttribute('isChecked') === 'false'){this.style.background='white'}" onclick="loadContent('./pages/note.html');dataCheck(renderNote(noteData))" class="navbar-options-num num-5"><i class="fa-solid fa-list-check"></i> <p style="margin-left:8px ;flex: 1;">Ghi chú</p></div>
+            <div onmouseover="this.style.background = '#FDEAD7';" onmouseout="if(!this.getAttribute('isChecked') || this.getAttribute('isChecked') === 'false'){this.style.background='white'}" onclick="loadContent('./pages/empty.html');dataCheck(renderFinish(finishList))" class="navbar-options-num num-6"><i class="fa-solid fa-circle-check"></i> <p style="margin-left: 8px;flex: 1;">Hoàn thành</p></div>
+            <div onmouseover="this.style.background = '#FDEAD7';" onmouseout="if(!this.getAttribute('isChecked') || this.getAttribute('isChecked') === 'false'){this.style.background='white'}" onclick="loadContent('./pages/bin.html'); dataCheck(renderRecycleBin(recycleBin))" class="navbar-options-num num-7"><i class="fa-solid fa-trash"></i> <p style="margin-left: 8px;flex: 1;">Thùng rác</p></div>
+            <!-- <div onclick="loadContent('./pages/repeat.html')" class="navbar-options-num num-8"><i class="fa-solid fa-repeat"></i> <p style="margin-left: 8px;flex: 1;">Lặp lại</p></div> -->
+        </div>
+        <hr>
+        <div class="navbar-groups">
+            <div style="display: flex;flex-direction:row ;justify-content: space-between;padding: 4px 8px; align-items: center;height: 28px;">
+                <h5>Nhóm</h5>
+                <button onclick="createGroup()" onmouseover="this.style.color = 'red';this.style.transform = 'scale(1.5)'" onmouseleave="this.style.color = '#4D5761';this.style.transform = 'none'" style="border: none;outline: none;background:none;cursor: pointer"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <div class="navbar-groups-list" style="display: flex;flex-direction:column ;font-size: 12px;">
+            </div>
+            <input
+                    onfocusout = "
+                    let containerr = this.closest('.navbar-groups')
+                    containerr.scrollTo(0,0);
+                    this.style.display = 'none'
+                    this.value = ''
+                    "
+                    onkeydown="
+                        if (event.key === 'Enter' && this.value.trim() !== '' && currentTab) {
+                         currentTab.unshift({group:this.value,notAllowDel:true,content:[]})
+                         this.blur()
+                         this.value = ''
+                         renderNavbarGroup()
+                         dataCheck(renderFilterContent(currentTab))
+                         console.log(currentTab,data)
+                         renderForAddTodo()
+                        }
+                    "
+                    maxlength="18" type="text" style="display: none;margin-top: 6px;width: 100%;padding: 8px 20px 8px 8px;border: 1px solid #F3F4F6;border-radius: 8px;outline: none;background:#F9FAFB "
+            >
+        </div>
+        <hr>
+        <div class="navbar-tags">
+            <div style="display: flex;flex-direction:row ;justify-content: space-between;padding: 4px 8px; align-items: center;height: 28px;">
+                <h5>Thẻ</h5>
+                 <button onclick="cancelTagFilter()" onmouseover="this.style.color = 'red';this.style.transform = 'scale(1.5)'" onmouseleave="this.style.color = '#4D5761';this.style.transform = 'none'" style="border: none;outline: none;background:none;cursor: pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="navbar-tags-list">
+
+            </div>
+            <!-- <input
+                    onfocusout = "
+                    let container = this.closest('.navbar-tags')
+                    container.scrollTo(0,0);
+                    this.style.display = 'none'
+                    this.value = ''
+                    "
+                    onkeydown="
+                        if (event.key === 'Enter' && this.value.trim() !== '') {
+                         tagsList.unshift(this.value)
+                         this.blur()
+                         this.value = ''
+                         renderTagLists()
+                        }
+                    "
+                    maxlength="18" type="text" style="display: none;margin-top: 6px;width: 100%;padding: 8px 20px 8px 8px;border: 1px solid #F3F4F6;border-radius: 8px;outline: none;background:#F9FAFB "
+            > -->
+        </div>
+        <div onclick="location.href='../login/index.html'" class="navbar-logOutBtn">
+            <button><i style="margin-right: 4px;" class="fa-solid fa-arrow-right-from-bracket"></i> Đăng xuất</button>
+        </div>
+    </div>
+    <div class="content">
+        <div class="content-header">
+            <div class="content-header--icon">
+                <img style="cursor: pointer" onclick="toggleSidebar()" src="../asset/Vector.png" height="16" width="20"/>
+            </div>
+            <div class="content-header--options">
+                <div style="position: relative;">
+                    <i style="position: absolute;top: 50%;transform: translate(-50%, -50%);left: 18px;color: white" class="fa-solid fa-circle-plus"></i>
+                    <button class="add-Btn" onclick="addBtn()" style="padding: 8px 8px 8px 30px;border: none;cursor: pointer;outline: none;color:white;background: #EF6820;border-radius: 8px">Tạo mới</button>
+                </div>
+                <i onclick="listFilter()" class="fa-regular fa-star" id="star"></i>
+                <div onclick="displayMenu()" class="toggleDisplay" data-status="left" style="display: flex;flex-direction: row;border-radius: 25px;background: #E5E7EB;padding: 3px">
+                    <div class="toggle1" style="display: flex;align-items: center;padding: 8px 8px 8px 8px;justify-items: center;border-radius: 55px;background: white"><i style="color: #EF6820" class="fa-solid fa-list" ></i></div>
+                    <div class="toggle2" style="display: flex;align-items: center;padding: 8px 8px 8px 8px;justify-items: center"><img src="../asset/Vector.png" height="16" width="20"/></div>
+                </div>
+            </div>
+        </div>
+        <div class="content-body" id="content" onscroll="scrollHandle(this)">
+            <!-- collapse from here!! -->
+            <details>
+<div class="content-body--1">
+    <div style="display: flex;flex-direction: row;justify-content:space-between;align-items: center;">
+        <div style="display: flex;flex-direction: row;gap: 16px">
+            <h3> Khác </h3>
+            <button style="border: none;outline: none;background:none;"><i style="color: #EF6820;font-size: 14px" class="fa-solid fa-plus"></i></button>
+        </div>
+        <p style="padding: 8px 16px">2</p>
+    </div>
+    <hr>
+    <div style="display: flex;flex-direction: column;gap: 8px;">
+        <div class="parent" onclick="clickToModify(this,event,true,'.dupDel-1')" style="display: flex;flex-direction: row;gap: 8px;padding: 8px;cursor: pointer;background: white">
+            <img onclick="colorChange(event);stopPropa(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+            <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                <div style="display: flex;justify-content:space-between ;">
+                    <div>
+                        <p style="font-weight: bold;margin-bottom: 4px">1</p>
+                        <p style="font-size: 12px;color:#9DA4AE">Curabitur venenatis semper consequat. Mauris semper, enim ut molestie aliquet, nulla orci ornare felis,</p>
+                    </div>
+                    <div style="position: relative;">
+                        <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                        <div class="dupDel-1" style="position: absolute;right: 0;width: 153px;height: 96px;padding: 8px;display: none;flex-direction: column;background: white;justify-content: space-between;border: 2px solid #F3F4F6;border-radius: 6px;color: #4D5761">
+                            <p style="padding: 8px"><i style="margin-right: 6px" class="fa-solid fa-clone"></i> Nhân đôi</p>
+                            <p style="padding: 8px"><i class="fa-solid fa-trash-can"></i> Xoá</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">công việc</p>
+                    <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">cá nhân</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div onclick="clickToModify(this,event,true,'.dupDel-2')" class="parent" style="display: flex;flex-direction: column;gap: 8px;cursor: pointer">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">2</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Curabitur venenatis semper consequat. Mauris semper, enim ut molestie aliquet, nulla orci ornare felis,</p>
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-direction: row;align-items: center;">
+                        <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">công việc</p>
+                        <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">cá nhân</p>
+                    </div>
+                    <div style="display: flex;flex-direction: row;align-items: center;gap: 8px;font-size: 14px;cursor: pointer;">
+                        <i style="color: #9DA4AE" class="fa-solid fa-repeat"></i>
+                        <i style="color: #9DA4AE" id="abcd" class="fa-solid fa-calendar"></i>
+                        <p style="color: #9DA4AE" class="date">20/03/2025 - 07:00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-body--2">
+    <div style="display: flex;flex-direction: row;justify-content:space-between;align-items: center;">
+        <div style="display: flex;flex-direction: row;gap: 16px">
+            <h3> Việc cần làm </h3>
+            <button style="border: none;outline: none;background:none;"><i style="color: #EF6820;font-size: 14px" class="fa-solid fa-plus"></i></button>
+        </div>
+        <p style="padding: 8px 16px">2</p>
+    </div>
+    <hr>
+    <div style="display: flex;flex-direction: column;gap: 8px;">
+        <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+            <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+            <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                <div style="display: flex;justify-content:space-between ;">
+                    <div>
+                        <p style="font-weight: bold;margin-bottom: 4px">Chạy bộ</p>
+                        <p style="font-size: 12px;color:#9DA4AE">Curabitur venenatis semper consequat. Mauris semper, enim ut molestie aliquet, nulla orci ornare felis,</p>
+                    </div>
+                    <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                </div>
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">công việc</p>
+                    <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">cá nhân</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">Chạy bộ </p>
+                            <p style="font-size: 12px;color:#9DA4AE">Curabitur venenatis semper consequat. Mauris semper, enim ut molestie aliquet, nulla orci ornare felis, ÁDASDASDASDADASDASDASDASDASD</p>
+                        </div>
+                        <div style="position: relative;">
+                            <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-direction: row;align-items: center;">
+                        <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">công việc</p>
+                        <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">cá nhân</p>
+                    </div>
+                    <div style="display: flex;flex-direction: row;align-items: center;gap: 8px;font-size: 14px;cursor: pointer;">
+                        <i style="color: #9DA4AE" class="fa-solid fa-repeat"></i>
+                        <i style="color: #9DA4AE" id="abcd2" class="fa-solid fa-calendar"></i>
+                        <p onclick="hehehe('abcd2',event)" style="color: #9DA4AE" class="date">20/03/2025 - 07:00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-body--3">
+    <div style="display: flex;flex-direction: row;justify-content:space-between;align-items: center;">
+        <div style="display: flex;flex-direction: row;gap: 16px">
+            <h3> Không phải công việc </h3>
+            <button style="border: none;outline: none;background:none;"><i style="color: #EF6820;font-size: 14px" class="fa-solid fa-plus"></i></button>
+        </div>
+        <p style="padding: 8px 16px">2</p>
+    </div>
+    <hr>
+    <div style="display: flex;flex-direction: column;gap: 8px;">
+        <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+            <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+            <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                <div style="display: flex;justify-content:space-between ;">
+                    <div>
+                        <p style="font-weight: bold;margin-bottom: 4px">Đây là một đoạn văn mẫu để test hiển thị độ dài của một thẻ</p>
+                        <p style="font-size: 12px;color:#9DA4AE">Curabitur venenatis semper consequat. Mauris semper, enim ut molestie aliquet, nulla orci ornare felis,</p>
+                    </div>
+                    <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                </div>
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">công việc</p>
+                    <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">cá nhân</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">The standard Lorem Ipsum passage, used since the 1500s</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Curabitur venenatis semper consequat. Mauris semper, enim ut molestie aliquet, nulla orci ornare felis,</p>
+                        </div>
+                        <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                    </div>
+                    <div style="display: flex;flex-direction: row;align-items: center;">
+                        <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">công việc</p>
+                        <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">cá nhân</p>
+                    </div>
+                    <div style="display: flex;flex-direction: row;align-items: center;gap: 8px;font-size: 14px;cursor: pointer;">
+                        <i style="color: #9DA4AE" class="fa-solid fa-repeat"></i>
+                        <i style="color: #9DA4AE" id="abcd3" class="fa-solid fa-calendar"></i>
+                        <p onclick="hehehe('abcd3',event)" style="color: #9DA4AE" class="date">20/03/2025 - 07:00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="test" style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">Test</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Test test test test</p>
+                        </div>
+                        <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="test" style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">Test</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Test test test test</p>
+                        </div>
+                        <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="test" style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">Test</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Test test test test</p>
+                        </div>
+                        <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="test" style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">Test</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Test test test test</p>
+                        </div>
+                        <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="test" style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">Test</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Test test test test</p>
+                        </div>
+                        <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="test" style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">Test</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Test test test test</p>
+                        </div>
+                        <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="test" style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">Test</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Test test test test</p>
+                        </div>
+                        <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="test" style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">Test</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Test test test test</p>
+                        </div>
+                        <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="test" style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">Test</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Test test test test</p>
+                        </div>
+                        <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="test" style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <img onclick="colorChange(event)" style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">Test</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Test test test test</p>
+                        </div>
+                        <i onclick="colorChange(event)"  class="fa-regular fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            </details>
+            <!--  -->
+        </div>
+    </div>
+    <div class="blur-overlay"></div>
+</div>
+<div class="popUp-add" style="display: none;position: absolute;top: 15%;left: 50%;transform:translateX(-50%);z-index: 1812;" >
+    <div style="display: flex;flex-direction: column;gap: 8px;padding: 12px 20px">
+        <div style="display: flex;flex-direction: row;justify-content: space-between;">
+            <div  style="flex: 0.7;display: flex;flex-direction: column;gap: 3px;">
+                <input maxlength="25" class="currentTab-title" type="text" placeholder="Nhập ghi chú mới" style="border: none;outline: none;padding: 8px 0;font-weight: 500;font-size: 20px;">
+                <input maxlength="100"  class="currentTab-content" type="text" placeholder="Thêm mô tả" style="border: none;outline: none;padding: 8px 0;font-weight: 400;font-size: 15px;">
+            </div>
+            <i onclick="if (!this.getAttribute('ischoosed'))
+            {
+                this.setAttribute('ischoosed', 'true');
+                this.classList.remove('fa-regular')
+                this.classList.add('fa-solid');
+                this.style.color = 'rgb(239, 104, 32)'
+            }
+            else {
+                this.removeAttribute('ischoosed');
+                this.classList.remove('fa-solid')
+                this.classList.add('fa-regular');
+                this.style.color = 'black'
+            }
+            "
+            class="fa-regular fa-star currentTab-star">
+            </i>
+        </div>
+        <div onclick="groupChoose(event)" class=" groups-choose" style="color: #4D5761;font-size: 13px;position: relative;height: 28px;">
+            <div style="display: flex;flex-direction: row;padding: 8px 12px;width: fit-content;border-radius: 8px;" >
+                <p class="currentTab-group" style="width: auto;overflow: hidden;max-width: 400px;"> Khác </p>
+                <i style="margin-left: 12px;cursor: pointer" class="fa-solid fa-caret-down"></i>
+            </div>
+            <div class="groups-choose-navbar" style="display: none;position: absolute;top: 100%;background: white;border: 2px solid #F3F4F6;;border-radius: 8px;width: 207px;padding: 8px;flex-direction: column;gap: 4px;justify-content: center;z-index: 9999;">
+                
+            </div>
+        </div>
+        <div class="popUp-add-options" style="display: flex;flex-direction: row;align-items: center;gap: 10px;">
+            <div onclick="addCalendarBtn(event)" class="options_num-1" style="cursor: pointer;position: relative;display: flex;">
+                <i class="fa-solid fa-calendar "></i>
+                <div style="display: flex;flex-direction: row;width: 100%;height: 100%;padding:0;gap: 8px;">
+                    <p class="currentTab-day" style="display: none;font-weight: 480;color:#FF4405"></p>
+                    <i style="display: none;align-self:center;color: #FF4405" class="fa-solid fa-xmark undo"></i>
+                </div>
+                <div style="display: none;position: absolute;border: 2px solid #F3F4F6;border-radius: 8px;" class="popUp-add-options-calendar__navbar">
+                    <p onclick="setValue('.options_num-1','.options_num-1 i:first-of-type','.options_num-1 div:first-of-type>p',event)">Hôm nay</p>
+                    <p onclick="setValue('.options_num-1','.options_num-1 i:first-of-type','.options_num-1 div:first-of-type>p',event)">Ngày mai</p>
+                    <p onclick="setValue('.options_num-1','.options_num-1 i:first-of-type','.options_num-1 div:first-of-type>p',event)">Tuần này</p>
+                    <p onclick="setValue('.options_num-1','.options_num-1 i:first-of-type','.options_num-1 div:first-of-type>p',event);calendarDisplay()" >Tuỳ chỉnh <i style="margin-left: 28px" class="fa-solid fa-arrow-right"></i> </p>
+                </div>
+            </div>
+            <div onclick="timeDisplay(event)" class="options_num-2" style="cursor: pointer;position: relative;display: flex;border-radius: 8px">
+                <i class="fa-solid fa-clock"></i>
+                <div style="display: flex;flex-direction: row;width: 100%;height: 100%;padding:0;gap: 8px;">
+                    <p class="currentTab-time" style="display: none;font-weight: 480;color:#FF4405"></p>
+                    <i style="display: none;align-self:center;color: #FF4405" class="fa-solid fa-xmark undo2"></i>
+                </div>
+                <div data-status="deactive" class="calendar-display" style="z-index: 2;border: 2px solid #F3F4F6;border-radius: 8px;display: none;flex-direction: column;position: absolute;background: white;width: 296px;height: 320px;top: 100%;left: -150%;padding: 8px;overflow: hidden;">
+                    <div style="height: 36px;display: flex;flex-direction: row;align-items: center;justify-content: space-between;padding: 22px 12px;background: #F5F5F5    ;border-radius: 8px">
+                        <i onclick="previousMonth()" style="padding: 6px;background: white;border-radius: 8px" class="fa-solid fa-arrow-left"></i>
+                        <p class="calendar-date">date here</p>
+                        <i onclick="nextMonth()" style="padding: 6px;background: white;border-radius: 8px" class="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <div style="flex: 1;padding: 0" class="options_num-2-navbar">
+                        <table class="calendar_table" style="width: 100%;font-size: 12px;color: #9DA4AE;border-spacing: 10px">
+
+                        </table>
+                    </div>
+                </div>
+                <div  class="time-display" style="z-index: 1;border: 2px solid #F3F4F6;border-radius: 8px;display: none;flex-direction: column;position: absolute;background: white;width: 320px;height: 84px;top: 100%;left: -60%;padding: 12px;gap: 8px">
+                    <p>Thời gian</p>
+                    <div style="display: flex;flex-direction: row;align-items: center;justify-content: space-between;padding: 0;gap: 8px";>
+                        <select onchange="timeDisplay(event)" class="time-display_hour" style="width: 100%;padding: 8px;border: 1px solid #F3F4F6;outline: none;border-radius: 8px;appearance: none;text-align: center">
+                            <option > --</option>
+                            <option >01</option>
+                            <option >02</option>
+                            <option >03</option>
+                            <option >04</option>
+                            <option >05</option>
+                            <option >06</option>
+                            <option >07</option>
+                            <option>08</option>
+                            <option>09</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                            <option>13</option>
+                            <option>14</option>
+                            <option >15</option>
+                            <option >16</option>
+                            <option >17</option>
+                            <option >18</option>
+                            <option >19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option >22</option>
+                            <option>23</option>
+                            <option>24</option>
+                        </select>
+                        <p>:</p>
+                        <select onchange="timeDisplay(event)" class="time-display_minute" style="width: 100%;padding: 8px;border: 1px solid #F3F4F6;outline: none;border-radius: 8px;appearance: none;text-align: center">
+                            <option > -- </option>
+                            <option >00</option>
+                            <option >15</option>
+                            <option >30</option>
+                            <option >45</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div onclick="repeatDisplay(event)" class="options_num-3" style="cursor: pointer;position: relative;color: black;border-radius: 8px;">
+                <i class="fa-solid fa-repeat currentTab-isRepeat"></i>
+                <div class="repeat-display" style="display: none;width: 328px;height: 216px;position: absolute;padding: 12px;background: white;left:-50px;flex-direction: column;justify-content: left;gap: 4px;;border: 2px solid #F3F4F6;border-radius: 8px;">
+                    <p style="font-weight:500 ;font-size: 14px;"> Lặp lại</p>
+                    <div class="repeat-display_navbar" onclick="repeatNav1(event)" style="position: relative;display: flex;flex-direction: row;padding: 10px 12px;width: 100%;height: 40px;border-radius:8px;background: white;justify-content: space-between;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+                        <p class="">Không lặp lại</p>
+                        <i class="fa-solid fa-caret-down"></i>
+                        <div class="repeat-display_navbar-1" style="display: none;flex-direction: column;gap: 4px;padding: 8px;width: 100%;position: absolute;left: 0;top: 100%;border: 2px solid #F3F4F6;border-radius: 8px;background: white;height: 172px;">
+                            <p style="border-radius: 8px;padding: 8px;display: flex;flex-direction: row;justify-content: space-between;">Không lặp lại <span  ><i class="fa-solid fa-check check-1"></i></span></p>
+                            <p style="border-radius: 8px;padding: 8px;display: flex;flex-direction: row;justify-content: space-between;"> Hằng ngày <span ><i class="fa-solid fa-check check-2"></i></span></p>
+                            <p style="border-radius: 8px;padding: 8px;display: flex;flex-direction: row;justify-content: space-between;"> Ngày trong tuần <span ><i class="fa-solid fa-check check-3"></i></span></p>
+                            <p style="border-radius: 8px;padding: 8px;display: flex;flex-direction: row;justify-content: space-between;"> Hằng tháng <span ><i class="fa-solid fa-check check-4"></i></span></p>
+                        </div>
+                    </div>
+                    <p style="font-weight:500 ;font-size: 14px;"> Kết thúc </p>
+                    <div class="repeatCounter-container" style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;background: white;">
+                        <img onclick="focusChange('.repeatCounter')" style="cursor: pointer;margin-right: 5px;" src="../asset/Radio.png" height="26" width="26"/>
+                        <p style="flex: 1;font-size: 15px;"> Số lần lặp lại</p>
+                        <input class="repeatCounter no-arrow" style="width: 37px;height: 40px;padding: 10px 10px;border: 1px solid #F3F4F6;outline: none;border-radius: 8px;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);" type="number">
+                    </div>
+                    <div class="repeat-calendarModify" style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;background: white;">
+                        <img onclick="focusChange('.repeat-calendar-num-1')" style="cursor: pointer;margin-right: 5px;" src="../asset/Radio.png" height="26" width="26"/>
+                        <p style="font-size: 15px;"> Vào ngày</p>
+                        <div style="flex: 1;display: flex;flex-direction: row;justify-content: right;align-items: center;">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <div style="display: flex;flex-direction: row;padding: 8px 0 8px 8px">
+                                <input onfocusout="calendarModify(event,this.value >= 0 && this.value <= 31)" oninput="calendarModify(event,this.value >= 0 && this.value <= 31);counter(event)" class="no-arrow repeat-calendar-num-1" style="width: 16px;border: none;outline:none" type="number" placeholder="--">
+                                /
+                                <input onfocusout="calendarModify(event,this.value >= 0 && this.value <= 12)" oninput="calendarModify(event,this.value >= 0 && this.value <= 12);counter(event)" class="no-arrow repeat-calendar-num-2" style="width: 16px;border: none;outline:none" type="number" placeholder="--">
+                                /
+                                <input max="9999" onclick="reset(event)" oninput="calendarModify(event,this.value >= 2000 && this.value < 9999);counter2(event,this.value >= 2000 && this.value < 9999)" class="no-arrow repeat-calendar-num-3" style="width: 30px;border: none;outline:none" type="number" placeholder="--">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div onclick="tagDisplay(event)" class="options_num-4" style="cursor: pointer;position: relative;border-radius: 8px;">
+                <i class="fa-solid fa-tags"></i>
+                <p class="currentTab-tag" style="display: none;height: 16px;width: 180px;white-space: nowrap;overflow: hidden;"> </p>
+                <div class="tag-display-options" style="display: none;position: absolute;top: 100%;background: white;border: 2px solid #F3F4F6;;border-radius: 8px;width: 153px;padding: 8px;flex-direction: column;gap: 4px;justify-content: center;">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr style="color: #FFFFFF;border: 1px solid #F3F4F6;">
+    <div style="display: flex;padding: 8px 16px;flex: 1;justify-content: flex-end;margin-right: 20px;">
+        <button class="newTodoAdd" onclick="newTodoAdd()" onmouseover="this.style.background ='#EF6820';this.style.color = 'white'" onmouseout="this.style.background = '#F3F4F6';this.style.color = '#4D5761'" style="border: none;outline: none;border-radius: 8px;font-weight: 700;padding: 8px 14px;cursor: pointer">Tạo mới</button>
+    </div>
+</div>
+<div class="search-popUp-container" style="display: none;position: absolute;top: 15%;left: 50%;transform:translateX(-50%);width: 624px;max-height: 388px;background: white;border: 2px solid #F3F4F6;border-radius: 16px;z-index: 1812;">
+    <div style="width: 100%;max-height: 388px;display: flex;flex-direction: column;padding: 12px;gap: 12px;">
+        <div style="width: 100%;display: flex;flex-direction: row;gap: 12px;position: relative;border: 2px solid #F3F4F6;border-radius: 8px;">
+            <i style="transform:translate(-50%, -50%);top: 50%;left: 20px;position: absolute;" class="fa-solid fa-magnifying-glass"></i>
+            <!-- box-shadow: 0 0 6px rgba(0, 0, 0, 0.1); -->
+            <input
+            class="search-input"
+            oninput="searchingInput()"
+            onfocusout="this.style.border = '2px solid white'; this.style.boxShadow = 'none';"
+            onfocus="this.style.border = '2px solid #EF6820'; this.style.boxShadow = '0 0 8px rgba(239, 104, 32, 0.4)';" 
+            style="outline: none;border:2px solid white;padding: 12px 20px 12px 35px;background: #F9FAFB;border-radius: 8px;flex: 1;width: 100%;background: #F9FAFB;" type="text" placeholder="Tìm kiếm">
+        </div>
+        <div style="flex: 1;display: flex;flex-direction: column;height: 100px;">
+            <div class="search-log" style="background: white;width: 100%;overflow: auto;max-height:100px ;opacity: 0;display: flex;flex-direction: column;gap: 8px;">
+                <!-- search log here -->
+                    <div style="display: flex;flex-direction: row;justify-content: space-between;">
+                        <p style="color: #4D5761;font-weight: 600;">Lịch sử tìm kiếm</p>
+                        <p onclick="searchLogItemsDelAll()" style="color: #F04438;cursor: pointer"> xóa tất cả</p>
+                    </div>
+                    <div class="search-log-content" style="display: flex;flex-direction: row;flex-wrap: wrap;gap: 8px;">
+                        <!-- <p class="search-log-list-num-" style="color: #4D5761;gap: 8px;max-width: 180px;padding: 6px 12px;border-radius: 8px;height: 32px;background: #F5F5F5;display: flex;align-items: center;justify-content: space-evenly"> 
+                            <span style="overflow: hidden;text-overflow: ellipsis;">nội dung ở đây</span> 
+                            <i style="margin-top: 1.4px;" class="fa-solid fa-xmark"></i>
+                        </p> -->
+                    </div>
+            </div>
+            <div class="search-list" style="background: white;width: 100%;max-height:300px ;overflow: auto;border-radius: 8px">
+
+<!-- searh list here -->
+<!--                 <div style="height: fit-content;width: 100%;background: white;margin-bottom: 12px;border-radius: 8px;border: 1px solid #F3F4F6;">-->
+<!--                     <div style="display: flex;flex-direction: row;gap: 8px;">-->
+<!--                         <img style="cursor: pointer;" src="../asset/Radio.png" height="28" width="28"/>-->
+<!--                         <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">-->
+<!--                             <div style="display: flex;justify-content:space-between ;">-->
+<!--                                 <div>-->
+<!--                                     <p style="font-weight: bold;margin-bottom: 4px">item title</p>-->
+<!--                                     <p style="font-size: 12px;color:#9DA4AE">item.content</p>-->
+<!--                                 </div>-->
+<!--                             </div>-->
+<!--                             <div style="display: flex;flex-direction: row;align-items: center;">-->
+<!--                                 <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">item.tag</p>-->
+<!--                                 <p style="padding: 4px 12px;font-size: 12px;color: #4D5761">item.tag</p>-->
+<!--                             </div>-->
+<!--                             <div style="display: flex;flex-direction: row;align-items: center;gap: 8px;font-size: 14px;cursor: pointer;">-->
+<!--                                 <i style="color: #9DA4AE" class="fa-solid fa-repeat"></i>-->
+<!--                                 <i style="color: #9DA4AE" id="abcd" class="fa-solid fa-calendar"></i>-->
+<!--                                 <p style="color: #9DA4AE" class="date">item.date + item.time</p>-->
+<!--                             </div>-->
+<!--                         </div>-->
+<!--                     </div>-->
+<!--                 </div>-->
+<!--  -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- phần test -->
+ <div class="test-overlayy" id="test-overlayy">
+  <div class="test-overlay-bg"></div> 
+  <div class="test-overlay-content">
+    <h1 class="test-overlay-title">
+      <span>T</span><span>o</span><span>D</span><span>o</span><span>A</span><span>p</span><span>p</span>
+    </h1>
+    <!-- <p class="test-overlay-subtitle">
+      <span>G</span><span>h</span><span>i</span><span> chú </span><span>v</span><span>à </span><span>q</span><span>uản</span><span> lý </span><span>c</span><span>ô</span><span>ng </span><span>việc</span>
+    </p> -->
+  </div>
+  <div class="test-overlay-drag-hint">
+    Kéo lên để bắt đầu
+  </div>
+</div>
+<!--  -->
+<script src="../home/run.js">
+</script>
+<script src="pages/today.js"></script>
+</body>
+</html>
+
+

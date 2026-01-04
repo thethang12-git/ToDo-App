@@ -1,0 +1,72 @@
+<div style="display: flex;width: 397px;height: 248px;margin: auto;flex-direction: column;gap: 24px;align-items: center;">
+    <img src="/module2/LandingPage/LandingPage2/asset/thungrac.png" height="228" width="188"/>
+</div>
+<div class="content-bin" style="flex: 1;position: relative;display: none;flex-direction:column;gap: 20px;color:#0D121C">
+    <div class="bin-header" style="display: flex;flex-direction: row;justify-content:space-between;align-items: center;">
+        <div style="display: flex;flex-direction: column;gap: 8px;width: 100%">
+            <div style="display: flex;flex-direction: row;justify-content: space-between;width: 100% ">
+                <div style="display: flex;flex-direction: row;align-items:center;gap: 16px">
+                    <h3> Thùng rác </h3>
+                    <i style="color: #F04438" class="fa-solid fa-trash-can"></i>
+                </div>
+                <p style="height: 32px;width:34px;justify-content: center;color: #EF6820;font-weight: 500;text-align: center;display: flex;align-items: center;border-radius: 8px;background: #FEF6EE">2</p>
+            </div>
+            <p style="font-weight: 400;font-size: 12px;border-radius: 8px;padding: 12px 8px;background: #FEF6EE"> <i style="margin-right: 5px;color: #EF6820" class="fa-solid fa-triangle-exclamation"></i> Toàn bộ dữ liệu sẽ bị xoá vĩnh viễn sau 30 ngày</p>
+        </div>
+    </div>
+    <hr>
+    <div class="bin-content" style="color:#9DA4AE; display: flex;flex-direction: column;gap: 8px;margin-top: -8px; ">
+        <div onclick="displayBinModifier(this)" style="display: flex;flex-direction: column;gap: 8px;">
+            <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
+                <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                    <div style="display: flex;justify-content:space-between ;">
+                        <div>
+                            <p style="font-weight: bold;margin-bottom: 4px">Chạy bộ</p>
+                            <p style="font-size: 12px;color:#9DA4AE">Curabitur venenatis semper consequat. Mauris semper, enim ut molestie aliquet, nulla orci ornare felis,</p>
+                        </div>
+                        <div style="display: flex;flex-direction: row;gap: 8px;position: relative">
+                            <i style="position: absolute;transition: all 0.5s ease;" class="star-cc fa-regular fa-star"></i>
+                            <i onclick="stopPropa(event);binNavbar(this)" style="cursor: pointer;display: none;color: #121212" class="bin-content--modifier fa-solid fa-ellipsis"></i>
+                            <div onclick="stopPropa(event)" style="cursor: pointer;display: none;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);width: 120px;position: absolute;flex-direction: column;border: 1px solid #F3F4F6;border-radius: 8px;top: 60%;left: -100px;background: white">
+                                <p onmouseenter="this.style.background = 'red'" style="font-size: 14px;color: #0D121C;padding: 8px 12px"> <i style="margin-right: 5px" class="fa-solid fa-trash-can-arrow-up"></i> Khôi phục</p>
+                                <p style="font-size: 14px;color: #0D121C;padding: 8px 12px"> <i style="margin-right: 5px" class="fa-solid fa-delete-left"></i> dọn dẹp</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-direction: row;align-items: center;gap:8px">
+                        <p style="padding: 4px 12px;font-size: 12px;color:#D2D6DB;background: #F5F5F5;border-radius: 8px">công việc</p>
+                        <p style="padding: 4px 12px;font-size: 12px;color:#D2D6DB;background: #F5F5F5;border-radius: 8px">cá nhân</p>
+                    </div>
+                    <div style="display: flex;flex-direction: row;align-items: center;gap: 8px;font-size: 14px;cursor: pointer;">
+                        <i style="color: #9DA4AE" class="fa-solid fa-repeat"></i>
+                        <i style="color: #9DA4AE" class="fa-solid fa-calendar"></i>
+                        <p style="color: #9DA4AE" class="date">20/03/2025 - 07:00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div onclick="displayBinModifier(this)" style="display: flex;flex-direction: row;gap: 8px;padding: 8px;background: white">
+            <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
+                <div style="display: flex;justify-content:space-between ;">
+                    <div>
+                        <p style="font-weight: bold;margin-bottom: 4px">Đi chơi</p>
+                        <p style="font-size: 12px;color:#9DA4AE">Nội dung của đi chơi....</p>
+                    </div>
+                    <div style="display: flex;flex-direction: row;gap: 8px;position: relative">
+                        <i style="position: absolute;transition: all 0.5s ease;" class="star-cc fa-regular fa-star"></i>
+                        <i onclick="stopPropa(event);binNavbar(this)" style="cursor: pointer;display: none;color: #121212" class="bin-content--modifier fa-solid fa-ellipsis"></i>
+                        <div onclick="stopPropa(event)" style="cursor: pointer;display: none;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);width: 120px;position: absolute;flex-direction: column;border: 1px solid #F3F4F6;border-radius: 8px;top: 60%;left: -100px;background: white">
+                            <p style="font-size: 14px;color: #0D121C;padding: 8px 12px"> <i style="margin-right: 5px" class="fa-solid fa-trash-can-arrow-up"></i> Khôi phục</p>
+                            <p style="font-size: 14px;color: #0D121C;padding: 8px 12px"> <i style="margin-right: 5px" class="fa-solid fa-delete-left"></i> dọn dẹp</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: row;align-items: center;gap:8px">
+                    <p style="padding: 4px 12px;font-size: 12px;color:#D2D6DB;background: #F5F5F5;border-radius: 8px">công việc</p>
+                    <p style="padding: 4px 12px;font-size: 12px;color:#D2D6DB;background: #F5F5F5;border-radius: 8px">cá nhân</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
