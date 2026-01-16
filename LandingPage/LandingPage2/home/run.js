@@ -127,8 +127,8 @@ function colorToFinish(event,array){
             itm.choosing = !itm.choosing
         }
     } ))
-    if (event.target.getAttribute('src') === '../asset/Radio.png') {
-        event.target.setAttribute('src', '../asset/Radio2.png')
+    if (event.target.getAttribute('src') === './asset/Radio.png') {
+        event.target.setAttribute('src', './asset/Radio2.png')
         event.target.style.width = '20px'
         event.target.style.height = '20px'
         event.target.style.marginLeft = '8px'
@@ -160,8 +160,8 @@ function colorToFinish(event,array){
         setTimeout(() => {listFilter();filterMode = true},100)
     //
     }
-    else if ((event.target.getAttribute('src') === '../asset/Radio2.png')) {
-        event.target.setAttribute('src', '../asset/Radio.png')
+    else if ((event.target.getAttribute('src') === './asset/Radio2.png')) {
+        event.target.setAttribute('src', './asset/Radio.png')
         event.target.style.width = '28px'
         event.target.style.height = '28px'
         event.target.style.marginLeft = '0'
@@ -862,13 +862,13 @@ function repeatCounter() {
     let img = container.querySelector('img')
     if (contain.querySelector('.repeatCounter').value <= 0 || contain.querySelector('.repeatCounter').value >= 100 || contain.querySelector('.repeatCounter').value === '') {
         contain.querySelector('.repeatCounter').value = ''
-        img.setAttribute('src', '../asset/Radio.png')
+        img.setAttribute('src', './asset/Radio.png')
         img.style.width = '28px'
         img.style.height = '28px'
         img.style.marginLeft = '0'
         return
     }
-    img.setAttribute('src', '../asset/Radio2.png')
+    img.setAttribute('src', './asset/Radio2.png')
     img.style.width = '20px'
     img.style.height = '20px'
     img.style.marginLeft = '8px'
@@ -931,14 +931,14 @@ function calendarModify(event, valid) {
             let item = contain.querySelector(`.repeat-calendar-num-${i}`);
             if (!item.value) {
                 item.value = ''
-                img.setAttribute('src', '../asset/Radio.png')
+                img.setAttribute('src', './asset/Radio.png')
                 img.style.width = '28px'
                 img.style.height = '28px'
                 img.style.marginLeft = '0'
                 return
             }
         }
-        img.setAttribute('src', '../asset/Radio2.png')
+        img.setAttribute('src', './asset/Radio2.png')
         img.style.width = '20px'
         img.style.height = '20px'
         img.style.marginLeft = '8px'
@@ -948,13 +948,13 @@ function calendarModify(event, valid) {
                 event.target.addEventListener('focusout', () => {
                     if (event.target.value < 2000) {
                         event.target.value = '';
-                        img.setAttribute('src', '../asset/Radio.png')
+                        img.setAttribute('src', './asset/Radio.png')
                         img.style.width = '28px'
                         img.style.height = '28px'
                         img.style.marginLeft = '0'
                     } else if (event.target.value > 9999) {
                         event.target.value = '';
-                        img.setAttribute('src', '../asset/Radio.png')
+                        img.setAttribute('src', './asset/Radio.png')
                         img.style.width = '28px'
                         img.style.height = '28px'
                         img.style.marginLeft = '0'
@@ -964,7 +964,7 @@ function calendarModify(event, valid) {
             return
         }
         event.target.value = ''
-        img.setAttribute('src', '../asset/Radio.png')
+        img.setAttribute('src', './asset/Radio.png')
         img.style.width = '28px'
         img.style.height = '28px'
         img.style.marginLeft = '0'
@@ -1419,7 +1419,7 @@ function renderNote(noteData) {
                 <hr>
                 <div class="note-body" style="flex: 1;display: flex;flex-direction: column;max-height: 80vh;">
                     <div style="flex: 1;width: 397px;height: 248px;margin: auto;display: flex;flex-direction: column;gap: 24px;align-items: center;justify-content: center">
-                        <img src="/LandingPage/LandingPage2/asset/noteEmpty.png" alt="">
+                        <img src="./asset/noteEmpty.png" alt="">
                     </div>
                 </div>
                 <div class="note-input" style="background: white;max-width:100vw;padding:12px;position: absolute;bottom:2%;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);width: 100%;border-radius: 16px;display: flex;flex-direction: row;justify-content: space-between ">
@@ -1619,7 +1619,7 @@ currentTab = null
 if(recycleBin.length === 0){
     return `
         <div style="display: flex;width: 397px;height: 248px;margin: auto;flex-direction: column;gap: 24px;align-items: center;">
-            <img src="/LandingPage/LandingPage2/asset/thungrac.png" height="228" width="188"/>
+            <img src="./asset/thungrac.png" height="228" width="188"/>
         </div>
     `
 }
@@ -1823,7 +1823,7 @@ function renderTodoList(todoInf,num){
     return `
             <div onclick="clickToModify(this,event,true,'.dupDel-${num}',data);clickToEdit(event)" class="parent" style="display: flex;flex-direction: column;gap: 8px">
                         <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
-                            <img alt="..." onclick="colorToFinish(event,data);stopPropa(event)" style="cursor: pointer;" src="${todoInf.choosing? '../asset/Radio2.png' : '../asset/Radio.png' }" height="${todoInf.choosing?'20' : '28'}" width="${todoInf.choosing? '20' : '28'}"/>
+                            <img alt="..." onclick="colorToFinish(event,data);stopPropa(event)" style="cursor: pointer;" src="${todoInf.choosing? './asset/Radio2.png' : './asset/Radio.png' }" height="${todoInf.choosing?'20' : '28'}" width="${todoInf.choosing? '20' : '28'}"/>
                             <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
                                 <div style="display: flex;justify-content:space-between ;">
                                     <div>
@@ -1898,7 +1898,7 @@ function renderContent(data){
     if(data.length === 0){
         return `
             <div style="width: 397px;height: 248px;margin: auto;display: flex;flex-direction: column;gap: 24px;align-items: center;">
-        <img src="/LandingPage/LandingPage2/asset/Group 26810.png" alt="">
+        <img src="./asset/Group 26810.png" alt="">
         <div style="display: flex;flex-direction: column;align-items: center;flex: 1;justify-content: space-between;">
             <p style="font-size: 24px;color: #4D5761;font-weight: 500;margin: 0;"> Tạo danh sách việc cần làm !</p>
         </div>
@@ -2028,7 +2028,7 @@ function renderTodayList(todoInf,num){
     return `
             <div onclick="clickToModify(this,event,true,'.dupDel-${num}',todayData);clickToEdit(event)" class="parent" style="display: flex;flex-direction: column;gap: 8px">
                         <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
-                            <img alt="..." onclick="colorToFinish(event,todayData);stopPropa(event)" style="cursor: pointer;" src="${todoInf.choosing? '../asset/Radio2.png' : '../asset/Radio.png' }" height="${todoInf.choosing?'20' : '28'}" width="${todoInf.choosing? '20' : '28'}"/>
+                            <img alt="..." onclick="colorToFinish(event,todayData);stopPropa(event)" style="cursor: pointer;" src="${todoInf.choosing? './asset/Radio2.png' : './asset/Radio.png' }" height="${todoInf.choosing?'20' : '28'}" width="${todoInf.choosing? '20' : '28'}"/>
                             <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
                                 <div style="display: flex;justify-content:space-between ;">
                                     <div>
@@ -2105,7 +2105,7 @@ function renderTodayContent(todayData){
     if(todayData.length === 0){
         return `
             <div style="width: 397px;height: 248px;margin: auto;display: flex;flex-direction: column;gap: 24px;align-items: center;">
-        <img src="/LandingPage/LandingPage2/asset/Group 26810.png" alt="">
+        <img src="./asset/Group 26810.png" alt="">
         <div style="display: flex;flex-direction: column;align-items: center;flex: 1;justify-content: space-between;">
             <p style="font-size: 24px;color: #4D5761;font-weight: 500;margin: 0;"> Tạo danh sách việc cần làm !</p>
         </div>
@@ -2198,7 +2198,7 @@ function Next3DaysContent(todoInf,num){
     return `
             <div onclick="clickToModify(this,event,true,'.dupDel-${num}',next3DaysData);clickToEdit(event)" class="parent" style="display: flex;flex-direction: column;gap: 8px">
                         <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
-                            <img alt="..." onclick="colorToFinish(event,next3DaysData);stopPropa(event)" style="cursor: pointer;" src="${todoInf.choosing? '../asset/Radio2.png' : '../asset/Radio.png' }" height="${todoInf.choosing?'20' : '28'}" width="${todoInf.choosing? '20' : '28'}"/>
+                            <img alt="..." onclick="colorToFinish(event,next3DaysData);stopPropa(event)" style="cursor: pointer;" src="${todoInf.choosing? './asset/Radio2.png' : './asset/Radio.png' }" height="${todoInf.choosing?'20' : '28'}" width="${todoInf.choosing? '20' : '28'}"/>
                             <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
                                 <div style="display: flex;justify-content:space-between ;">
                                     <div>
@@ -2274,7 +2274,7 @@ function renderNext3DaysContent(next3DaysData){
     if(next3DaysData.length === 0){
         return `
             <div style="width: 397px;height: 248px;margin: auto;display: flex;flex-direction: column;gap: 24px;align-items: center;">
-        <img src="/LandingPage/LandingPage2/asset/Group 26810.png" alt="">
+        <img src="./asset/Group 26810.png" alt="">
         <div style="display: flex;flex-direction: column;align-items: center;flex: 1;justify-content: space-between;">
             <p style="font-size: 24px;color: #4D5761;font-weight: 500;margin: 0;"> Tạo danh sách việc cần làm !</p>
         </div>
@@ -2363,7 +2363,7 @@ function Next7DaysContent(todoInf,num){
     return `
             <div onclick="clickToModify(this,event,true,'.dupDel-${num}',Next7DaysData);clickToEdit(event)" class="parent" style="display: flex;flex-direction: column;gap: 8px">
                         <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
-                            <img alt="..." onclick="colorToFinish(event,Next7DaysData);stopPropa(event)" style="cursor: pointer;" src="${todoInf.choosing? '../asset/Radio2.png' : '../asset/Radio.png' }" height="${todoInf.choosing?'20' : '28'}" width="${todoInf.choosing? '20' : '28'}"/>
+                            <img alt="..." onclick="colorToFinish(event,Next7DaysData);stopPropa(event)" style="cursor: pointer;" src="${todoInf.choosing? './asset/Radio2.png' : './asset/Radio.png' }" height="${todoInf.choosing?'20' : '28'}" width="${todoInf.choosing? '20' : '28'}"/>
                             <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
                                 <div style="display: flex;justify-content:space-between ;">
                                     <div>
@@ -2439,7 +2439,7 @@ function renderNext7DaysContent(Next7DaysData){
     if(Next7DaysData.length === 0){
         return `
             <div style="width: 397px;height: 248px;margin: auto;display: flex;flex-direction: column;gap: 24px;align-items: center;">
-        <img src="/LandingPage/LandingPage2/asset/Group 26810.png" alt="">
+        <img src="./asset/Group 26810.png" alt="">
         <div style="display: flex;flex-direction: column;align-items: center;flex: 1;justify-content: space-between;">
             <p style="font-size: 24px;color: #4D5761;font-weight: 500;margin: 0;"> Tạo danh sách việc cần làm !</p>
         </div>
@@ -2536,7 +2536,7 @@ function filterContent(todoInf){
     return `
             <div onclick="clickToModify(this,event,true,'.dupDel-${todoInf.id}',previous);clickToEdit(event)" class="parent" style="display: flex;flex-direction: column;gap: 8px">
                         <div style="display: flex;flex-direction: row;gap: 8px;padding: 8px;">
-                            <img alt="..." onclick="colorToFinish(event,previous);stopPropa(event)" style="cursor: pointer;" src="${todoInf.choosing? '../asset/Radio2.png' : '../asset/Radio.png' }" height="${todoInf.choosing?'20' : '28'}" width="${todoInf.choosing? '20' : '28'}"/>
+                            <img alt="..." onclick="colorToFinish(event,previous);stopPropa(event)" style="cursor: pointer;" src="${todoInf.choosing? './asset/Radio2.png' : './asset/Radio.png' }" height="${todoInf.choosing?'20' : '28'}" width="${todoInf.choosing? '20' : '28'}"/>
                             <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
                                 <div style="display: flex;justify-content:space-between ;">
                                     <div>
@@ -2610,7 +2610,7 @@ function renderFilterContent(array){
     if(array.length === 0){
         return `
             <div style="width: 397px;height: 248px;margin: auto;display: flex;flex-direction: column;gap: 24px;align-items: center;">
-        <img src="/LandingPage/LandingPage2/asset/Group 26810.png" alt="">
+        <img src="./asset/Group 26810.png" alt="">
         <div style="display: flex;flex-direction: column;align-items: center;flex: 1;justify-content: space-between;">
             <p style="font-size: 24px;color: #4D5761;font-weight: 500;margin: 0;"> Tạo danh sách việc cần làm !</p>
         </div>
@@ -2829,7 +2829,7 @@ function renderFinish(array){
                 <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
                     <div style="display: flex;justify-content:space-between ;">
                         <div style="display: flex;flex-direction:row;gap:12px">
-                            <img alt="..." onclick="undoFinish(this);stopPropa(event)" style="cursor: pointer;" src="${item.content.choosing? '../asset/Radio2.png' : '../asset/Radio.png' }" height="${item.content.choosing?'20' : '28'}" width="${item.content.choosing? '20' : '28'}"/>
+                            <img alt="..." onclick="undoFinish(this);stopPropa(event)" style="cursor: pointer;" src="${item.content.choosing? './asset/Radio2.png' : './asset/Radio.png' }" height="${item.content.choosing?'20' : '28'}" width="${item.content.choosing? '20' : '28'}"/>
                             <div style="display: flex;flex-direction:column">
                                 <p style="font-weight: bold;margin-bottom: 4px">${item.from} - ${item.name} - ${item.content.title}</p>
                                 <p style="font-size: 12px;color:#9DA4AE">${item.content.content}</p>
@@ -2873,7 +2873,7 @@ function undoFinish(item) {
     let array = dataList[choosedObj.from]
     let findGroup = array.find(itm => itm.group === choosedObj.name )
     choosedObj.content.choosing = false
-    item.setAttribute('src' , '../asset/Radio.png')
+    item.setAttribute('src' , './asset/Radio.png')
     item.style.width = '28px'
     item.style.height = '28px'
     container.style.opacity = '0'
@@ -3468,12 +3468,12 @@ function resetDataAddSection(){
                     </div>
                     <p style="font-weight:500 ;font-size: 14px;"> Kết thúc </p>
                     <div class="repeatCounter-container" style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;background: white;">
-                        <img onclick="focusChange('.repeatCounter')" style="cursor: pointer;margin-right: 5px;" src="../asset/Radio.png" height="26" width="26"/>
+                        <img onclick="focusChange('.repeatCounter')" style="cursor: pointer;margin-right: 5px;" src="./asset/Radio.png" height="26" width="26"/>
                         <p style="flex: 1;font-size: 15px;"> Số lần lặp lại</p>
                         <input class="repeatCounter no-arrow" style="width: 37px;height: 40px;padding: 10px 10px;border: 1px solid #F3F4F6;outline: none;border-radius: 8px;box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);" type="number">
                     </div>
                     <div class="repeat-calendarModify" style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;background: white;">
-                        <img onclick="focusChange('.repeat-calendar-num-1')" style="cursor: pointer;margin-right: 5px;" src="../asset/Radio.png" height="26" width="26"/>
+                        <img onclick="focusChange('.repeat-calendar-num-1')" style="cursor: pointer;margin-right: 5px;" src="./asset/Radio.png" height="26" width="26"/>
                         <p style="font-size: 15px;"> Vào ngày</p>
                         <div style="flex: 1;display: flex;flex-direction: row;justify-content: right;align-items: center;">
                             <i class="fa-solid fa-calendar-check"></i>
@@ -3692,7 +3692,7 @@ function searchingInput () {
                 `
                 <div onclick="clickToFind(event)" class="search-list-items search-list-num-${num}" onmouseover="this.style.background = '#E5E7EB'" onmouseout="this.style.background = 'white'" style="cursor: pointer;height: fit-content;width: 100%;background: white;margin-bottom: 12px;border-radius: 8px;border: 1px solid #F3F4F6;">
                      <div style="display: flex;flex-direction: row;gap: 8px;">
-                         <img src="../asset/Radio.png" height="28" width="28"/>
+                         <img src="./asset/Radio.png" height="28" width="28"/>
                          <div style="flex: 1;display: flex;flex-direction: column;gap: 8px">
                              <div style="display: flex;justify-content:space-between ;">
                                  <div>
